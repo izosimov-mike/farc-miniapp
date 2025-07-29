@@ -21,7 +21,23 @@ export async function GET() {
     const APP_URL = getAppUrl();
     
     const farcasterConfig = {
-      // TODO: Add your own account association
+      // Farcaster Mini-App Manifest Specification
+      name: "Monad Farcaster MiniApp Template",
+      description: "A template for building mini-apps on Farcaster and Monad",
+      icon: `${APP_URL}/images/icon.png`,
+      url: `${APP_URL}`,
+      screenshot: `${APP_URL}/images/feed.png`,
+      screenshots: [],
+      tags: ["monad", "farcaster", "miniapp", "template"],
+      category: "developer-tools",
+      buttonText: "Launch Template",
+      splashImage: `${APP_URL}/images/splash.png`,
+      splashBackgroundColor: "#ffffff",
+      webhookUrl: `${APP_URL}/api/webhook`,
+      // Required fields for mini-app validation
+      version: "1.0.0",
+      permissions: [],
+      // Frame metadata for compatibility
       frame: {
         version: "1",
         name: "Monad Farcaster MiniApp Template",
@@ -38,10 +54,31 @@ export async function GET() {
       },
     };
 
-    return NextResponse.json(farcasterConfig);
+    return NextResponse.json(farcasterConfig, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
   } catch (error) {
     // Fallback конфигурация в случае ошибки
     const fallbackConfig = {
+      name: "Monad Farcaster MiniApp Template",
+      description: "A template for building mini-apps on Farcaster and Monad",
+      icon: "https://farc-miniapp.vercel.app/images/icon.png",
+      url: "https://farc-miniapp.vercel.app",
+      screenshot: "https://farc-miniapp.vercel.app/images/feed.png",
+      screenshots: [],
+      tags: ["monad", "farcaster", "miniapp", "template"],
+      category: "developer-tools",
+      buttonText: "Launch Template",
+      splashImage: "https://farc-miniapp.vercel.app/images/splash.png",
+      splashBackgroundColor: "#ffffff",
+      webhookUrl: "https://farc-miniapp.vercel.app/api/webhook",
+      version: "1.0.0",
+      permissions: [],
       frame: {
         version: "1",
         name: "Monad Farcaster MiniApp Template",
@@ -58,6 +95,24 @@ export async function GET() {
       },
     };
 
-    return NextResponse.json(fallbackConfig);
+    return NextResponse.json(fallbackConfig, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
   }
+}
+
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
 }
