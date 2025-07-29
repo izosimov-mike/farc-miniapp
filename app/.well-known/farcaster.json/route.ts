@@ -1,7 +1,16 @@
 import { NextResponse } from "next/server";
-import { APP_URL } from "../../../lib/constants";
+
+// Определяем APP_URL более надежным способом
+const getAppUrl = () => {
+  return process.env.NEXT_PUBLIC_URL || 
+         process.env.NEXT_PUBLIC_VERCEL_URL || 
+         process.env.VERCEL_URL || 
+         'http://localhost:3000';
+};
 
 export async function GET() {
+  const APP_URL = getAppUrl();
+  
   const farcasterConfig = {
     // TODO: Add your own account association
     frame: {
